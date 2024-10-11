@@ -75,7 +75,7 @@ module MissionControl
         MissionControl::Jobs.delay_between_bulk_operation_batches = 2
         MissionControl::Jobs.logger = ActiveSupport::Logger.new(STDOUT)
 
-        if MissionControl::Jobs.applications.one? && (application = MissionControl::Jobs.applications.first) && application.servers.one?
+        if MissionControl::Jobs.applications.one? && (application = MissionControl::Jobs.applications.first) && application.servers.one? && application.servers.first.name == ActiveJob::Base.queue_adapter_name
           MissionControl::Jobs::Current.application = application
           MissionControl::Jobs::Current.server = application.servers.first
         end
